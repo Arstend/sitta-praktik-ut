@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SITTA - Login</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="preload stylesheet" crossorigin="anonymous"/>
+<link href="css/login.css" rel="stylesheet" />
+</head>
+<body class="d-flex align-items-center py-4 bg-body-tertiary">
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-sm-10 col-md-8 col-lg-5">
+			<div class="card shadow-lg border-0 overflow-hidden" id="loginCard">
+				<div class="card-body p-4">
+					<div class="text-center mb-3">
+						<img class="mb-2 d-block mx-auto" src="assets/Logo_Universitas_Terbuka.svg" alt="Logo" width="76">
+						<h2 class="h5 fw-bold mb-0">Aplikasi SITTA</h2>
+						<small class="text-muted">Sistem Informasi Tiras dan Transaksi Bahan Ajar</small>
+					</div>
+
+					<div class="alert alert-danger" id="alert-message" role="alert" style="display:none;"></div>
+
+					<form id="loginForm" method="post" novalidate>
+						<div class="mb-3 form-floating">
+							<input type="email" class="form-control" id="email" placeholder="Email" autocomplete="off" autofocus>
+							<label for="email"><i class="fas fa-envelope me-1"></i> Email</label>
+							<div class="invalid-feedback" id="email-msg"></div>
+						</div>
+						<div class="mb-2 form-floating">
+							<input type="password" class="form-control" id="password" placeholder="Password" autocomplete="off">
+							<label for="password"><i class="fas fa-lock me-1"></i> Password</label>
+							<div class="invalid-feedback" id="password-msg"></div>
+						</div>
+
+						<div class="d-flex justify-content-between align-items-center mb-3">
+							<div>
+								<button type="button" class="btn btn-link p-0 small" data-bs-toggle="modal" data-bs-target="#modal-forgot-password"><i class="fas fa-key"></i> Lupa password?</button>
+							</div>
+							<div>
+								<a href="https://hallo-ut.ut.ac.id" target="_blank" class="btn btn-link text-muted p-0 small" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Kunjungi https://hallo-ut.ut.ac.id atau hubungi hallo-ut@ut.ac.id untuk meminta bantuan"><i class="fas fa-life-ring"></i> Butuh bantuan?</a>
+							</div>
+						</div>
+
+						<button class="btn btn-primary w-100 py-2 mb-2" type="submit" id="btn-login"><i class="fas fa-sign-in-alt"></i> Masuk</button>
+						<div class="text-center">
+							<small class="text-muted">Belum punya akun? <button class="btn btn-link p-0 align-baseline" type="button" data-bs-toggle="modal" data-bs-target="#modal-register">Daftar</button></small>
+						</div>
+					</form>
+				</div>
+				<div class="card-footer bg-transparent text-center small text-muted py-2">&copy; 2025 · William · 051923425</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Menampilkan modal register -->
+<div class="modal fade" id="modal-register" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal-register" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Pendaftaran Akun</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+			</div>
+			<form id="registerForm">
+				<div class="modal-body row">
+					<div class="col-md-6">
+						<div class="mb-3">
+							<label for="a_Nama" class="form-label">Nama Lengkap</label>
+							<input type="text" id="a_Nama" class="form-control" placeholder="Nama" autocomplete="off">
+							<div class="invalid-feedback" id="a_Nama-msg"></div>
+						</div>
+						<div class="mb-3">
+							<label for="a_Email" class="form-label">Email</label>
+							<input type="email" id="a_Email" class="form-control" placeholder="Email" autocomplete="off">
+							<div class="invalid-feedback" id="a_Email-msg"></div>
+						</div>
+						<div class="mb-3">
+							<label for="a_Password" class="form-label">Password</label>
+							<input type="password" id="a_Password" class="form-control" placeholder="Password" autocomplete="off">
+							<div class="invalid-feedback" id="a_Password-msg"></div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="mb-3">
+							<label for="a_Role" class="form-label">Role</label>
+							<select class="form-select" id="a_Role">
+								<option>Administrator</option>
+								<option>Fakultas</option>
+								<option>Puslaba</option>
+								<option>UPBJJ-UT</option>
+							</select>
+							<div class="invalid-feedback" id="a_Role-msg"></div>
+						</div>
+						<div class="mb-3">
+							<label for="a_Lokasi" class="form-label">Lokasi</label>
+							<select class="form-select" id="a_Lokasi">
+								<option>Pusat</option>
+								<option>FISIP</option>
+								<option>FEB</option>
+								<option>FST</option>
+								<option>UPBJJ Batam</option>
+								<option>UPBJJ Jakarta</option>
+								<option>UPBJJ Makassar</option>
+								<option>UPBJJ Pekanbaru</option>
+							</select>
+							<div class="invalid-feedback" id="a_Lokasi-msg"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer"><button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fas fa-times"></i> Batalkan</button> <button type="submit" class="btn btn-primary" id="btn-register"><i class="fas fa-save"></i> Daftar</button></div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- Menampilkan modal reset password -->
+<div class="modal fade" id="modal-forgot-password" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal-forgot-password" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Lupa Password</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+			</div>
+			<form id="resetPasswordForm">
+				<div class="modal-body">
+					<p class="mb-3">Masukkan alamat email untuk mencari akun yang terdaftar. Link reset password akan dikirim ke alamat email yang terdaftar.</p>
+					<div class="mb-3">
+						<label for="f_Email" class="form-label">Email</label>
+						<input type="email" id="f_Email" class="form-control" placeholder="Email" autocomplete="off">
+						<div class="invalid-feedback" id="f_Email-msg"></div>
+					</div>
+				</div>
+				<div class="modal-footer"><button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fas fa-times"></i> Batalkan</button> <button type="submit" class="btn btn-primary" id="btn-reset-password"><i class="fas fa-paper-plane"></i> Kirimkan Link Reset Password</button></div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/data.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+<script>
+// Sembunyikan semua invalid pada input dari modal register
+function hideAllMsg(){
+	hideErrMsg('email');
+	hideErrMsg('password');
+	hideErrMsg('a_Nama');
+	hideErrMsg('a_Email');
+	hideErrMsg('a_Password');
+	hideErrMsg('a_Role');
+	hideErrMsg('a_Lokasi');
+	hideErrMsg('f_Email');
+}
+
+var formLogin = document.getElementById('loginForm');
+var formRegister = document.getElementById('registerForm');
+var formResetPassword = document.getElementById('resetPasswordForm');
+
+// Inisialisasi tooltip Bootstrap
+document.addEventListener('DOMContentLoaded', function () {
+	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+	tooltipTriggerList.forEach(function (el) { new bootstrap.Tooltip(el); });
+});
+
+// Login
+formLogin.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    // Sembunyikan semua alert dan invalid pada input
+    $('#alert-message').hide();
+	hideAllMsg();
+	var isError = false;
+
+    // Ambil email dan password dari input
+    var email = $('#email').val();
+	var password = $('#password').val();
+
+	// Jika email kosong
+	if(!email){
+		showErrMsg('email', 'Email harus diisi.');
+        var isError = true;
+	}
+
+	// Jika password kosong
+	if(!password){
+		showErrMsg('password', 'Password harus diisi.');
+		var isError = true;
+	}
+
+	// Jika error adalah true, maka batalkan login
+	if(isError == true){
+		return;
+	}
+
+	// Validasi
+	var user = dataPengguna.find(function(u){
+		return u.email === email && u.password === password;
+	});
+
+	// Jika email dan password tidak cocok
+    if(!user){
+		showErrMsg('email');
+		showErrMsg('password');
+		$('#alert-message').html('Email atau password Anda masukkan salah.');
+		$('#alert-message').show();
+		return;
+	}
+
+	// Redirect ke dashboard
+	window.location.href = 'dashboard.html';
+});
+
+// Register
+formRegister.addEventListener('submit', function(e){
+    e.preventDefault();
+
+	// Matikan tombol register sementara untuk menghindari terjadinya 2 kali submit secara tidak sengaja
+	$('#btn-register').attr('disabled', 'disabled');
+
+	// Sembunyikan semua alert dan invalid pada input
+    $('#alert-message').hide();
+	hideAllMsg();
+	var isError = false;
+
+    // Ambil semua data dari form register
+    var nama = $('#a_Nama').val();
+	var email = $('#a_Email').val();
+	var password = $('#a_Password').val();
+	var role = $('#a_Role').val();
+	var lokasi = $('#a_Lokasi').val();
+
+	// Jika email kosong
+	if(!nama){
+		showErrMsg('a_Nama', 'Nama harus diisi.');
+        var isError = true;
+	}
+
+	// Jika email kosong
+	if(!email){
+		showErrMsg('a_Email', 'Email harus diisi.');
+        var isError = true;
+	}
+
+	// Jika password kosong
+	if(!password){
+		showErrMsg('a_Password', 'Password harus diisi.');
+		var isError = true;
+	}
+
+	// Jika role kosong
+	if(!role){
+		showErrMsg('a_Role', 'Role harus diisi.');
+        var isError = true;
+	}
+
+	// Jika lokasi kosong
+	if(!lokasi){
+		showErrMsg('a_Lokasi', 'Lokasi harus diisi.');
+        var isError = true;
+	}
+
+	// Jika error adalah true, maka batalkan register
+	if(isError == true){
+		// Aktifkan tombol register
+		$('#btn-register').removeAttr('disabled');
+		return;
+	}
+
+	// Validasi
+	var user = dataPengguna.find(function(u){
+		return u.email === email;
+	});
+
+	// Jika email sudah terdaftar
+    if(user){
+		showErrMsg('a_Email', 'Email telah terdaftar.');
+
+		// Aktifkan tombol register
+		$('#btn-register').removeAttr('disabled');
+		return;
+	}
+
+	// Tampilkan pesan pendaftaran berhasil
+	alert('Registrasi berhasil! Silakan lakukan login pada halaman login.')
+
+	// Aktifkan tombol register
+	$('#btn-register').removeAttr('disabled');
+
+	// Tutup modal
+	$('#modal-register').modal('hide');
+});
+
+// Reset form register setelah modal register ditutup
+$('#modal-register').on('hidden.bs.modal',function(e){
+	// Reset form register
+	$('#registerForm')[0].reset();
+
+	// Sembunyikan semua alert dan invalid pada input
+    $('#alert-message').hide();
+	hideAllMsg();
+});
+
+formResetPassword.addEventListener('submit', function(e){
+    e.preventDefault();
+
+	// Matikan tombol register sementara untuk menghindari terjadinya 2 kali submit secara tidak sengaja
+	$('#btn-reset-password').attr('disabled', 'disabled');
+
+	// Sembunyikan semua alert dan invalid pada input
+    $('#alert-message').hide();
+	hideAllMsg();
+	var isError = false;
+
+    // Ambil email dari form reset password
+	var email = $('#f_Email').val();
+
+	// Jika email kosong
+	if(!email){
+		showErrMsg('f_Email', 'Email harus diisi.');
+        var isError = true;
+	}
+
+	// Jika error adalah true, maka batalkan reset password
+	if(isError == true){
+		// Aktifkan tombol reset password
+		$('#btn-reset-password').removeAttr('disabled');
+		return;
+	}
+
+	// Validasi
+	var user = dataPengguna.find(function(u){
+		return u.email === email;
+	});
+
+	// Jika email tidak ditemukan
+    if(!user){
+		showErrMsg('f_Email', 'Email tidak ditemukan.');
+
+		// Aktifkan tombol reset password
+		$('#btn-reset-password').removeAttr('disabled');
+		return;
+	}
+
+	// Tampilkan pesan berhasil
+	alert('Link reset password telah di kirim ke alamat email Anda. Mohon periksa pada inbox atau folder spam pada email Anda.')
+
+	// Aktifkan tombol reset password
+	$('#btn-reset-password').removeAttr('disabled');
+
+	// Tutup modal
+	$('#modal-forgot-password').modal('hide');
+});
+
+// Reset form reset password setelah modal reset password ditutup
+$('#modal-forgot-password').on('hidden.bs.modal',function(e){
+	// Reset form reset password
+	$('#resetPasswordForm')[0].reset();
+
+	// Sembunyikan semua alert dan invalid pada input
+    $('#alert-message').hide();
+	hideAllMsg();
+});
+</script>
+</body>
+</html>
