@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SITTA - Tracking Delivery Order Bahan Ajar</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="preload stylesheet" crossorigin="anonymous"/>
+<link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+<header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
+	<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white">Universitas Terbuka</a>
+	<ul class="navbar-nav flex-row d-md-none">
+		<li class="nav-item text-nowrap">
+			<button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars bi" aria-hidden="true"></i></button>
+		</li>
+	</ul>
+</header>
+<div class="container-fluid">
+	<div class="row">
+		<!-- Sidebar left -->
+		<div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+			<div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+				<div class="offcanvas-header">
+					<h5 class="offcanvas-title" id="sidebarMenuLabel">Universitas Terbuka</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+				</div>
+				<div class="offcanvas-body d-md-flex flex-column p-3 pt-lg-3 overflow-y-auto">
+					<!-- Logo -->
+					<div class="d-flex align-items-center gap-3 mb-3">
+						<img src="assets/Logo_Universitas_Terbuka.svg" alt="UT" class="profile-img rounded-circle">
+						<div>
+							<div class="fw-semibold">Universitas Terbuka</div>
+							<small class="text-muted">Aplikasi SITTA</small>
+						</div>
+					</div>
+
+					<!-- Menu -->
+					<div class="list-group mb-2 shadow-sm">
+						<a href="dashboard.html" class="list-group-item list-group-item-action d-flex align-items-center gap-2">
+							<i class="fas fa-tachometer-alt fa-fw"></i>
+							<span>Dashboard</span>
+						</a>
+						<a href="stok.html" class="list-group-item list-group-item-action d-flex align-items-center gap-2">
+							<i class="fas fa-book fa-fw"></i>
+							<span>Informasi Bahan Ajar</span>
+						</a>
+						<a class="list-group-item list-group-item-action d-flex align-items-center gap-2 active">
+							<i class="fas fa-file-alt fa-fw"></i>
+							<span>Monitoring Progress</span>
+						</a>
+					</div>
+
+					<!-- Collapsible sub menu laporan -->
+					<div class="mb-2">
+						<button class="btn btn-sm btn-outline-secondary w-100 text-start d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#laporanCollapse" aria-expanded="true" aria-controls="laporanCollapse">
+							<span><i class="fas fa-chart-line me-2"></i> Laporan</span>
+							<i class="fas fa-chevron-down small"></i>
+						</button>
+						<div class="collapse mt-2" id="laporanCollapse">
+							<div class="list-group">
+								<a href="#" class="list-group-item list-group-item-action ps-4">Monitoring DO</a>
+								<a href="#" class="list-group-item list-group-item-action ps-4">Rekap Bahan Ajar</a>
+							</div>
+						</div>
+					</div>
+
+					<hr class="my-3">
+
+					<!-- Utilities -->
+					<div class="list-group mb-3">
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-2"><i class="fas fa-history fa-fw"></i> Histori Transaksi</a>
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-2"><i class="fas fa-cog fa-fw"></i> Settings</a>
+						<a href="index.html" class="list-group-item list-group-item-action d-flex align-items-center gap-2 text-danger"><i class="fas fa-sign-out-alt fa-fw"></i> Keluar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+			<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+				<h1 class="h2">Tracking Delivery Order Bahan Ajar</h1>
+			</div>
+
+			<h3>Cek Status Pengiriman Bahan Ajar</h3>
+			<p>Masukkan nomor delivery order (DO) untuk melihat status pengiriman bahan ajar Anda.</p>
+			<hr class="my-4">
+			<!-- Form tracking -->
+			<form class="row g-3" id="trackingForm">
+				<div class="col-auto">
+					<label for="id" class="col-form-label">Nomor Delivery Order</label>
+				</div>
+				<div class="col-auto">
+					<input type="text" class="form-control" id="id" autocompelete="off" require>
+					<div class="invalid-feedback" id="id-msg"></div>
+				</div>
+				<div class="col-auto">
+					<button type="submit" class="btn btn-primary mb-3" id="btn-search"><i class="fas fa-search"></i> Cari</button>
+				</div>
+			</form>
+
+			<!-- Hasil tracking -->
+			<div id="trackingResult" style="display:none">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="my-0">Status Pengiriman</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between position-relative mt-5 mb-5">
+                            <div class="col progress-step progress-step-first" data-status-step="Diterima">Diterima</div>
+                            <div class="col progress-step" data-status-step="Dalam Pengiriman">Dalam Pengiriman</div>
+                            <div class="col progress-step" data-status-step="Dikirim">Dikirim</div>
+                            <div class="col progress-step" data-status-step="Selesai">Selesai</div>
+                        </div>
+						<div class="row">
+							<div class="col-6 mb-2">
+								<div class="text-muted">Nomor Delivery Order</div><strong id="displayNomorDO"></strong>
+							</div>
+							<div class="col-6 mb-2">
+								<div class="text-muted">Nama Penerima</div><strong id="displayNamaMahasiswa"></strong>
+							</div>
+							<div class="col-6 mb-2">
+								<div class="text-muted">Status</div><strong id="displayStatus"></strong>
+							</div>
+							<div class="col-6 mb-2">
+								<div class="text-muted">Ekspedisi</div><strong id="displayEkspedisi"></strong>
+							</div>
+							<div class="col-6 mb-2">
+								<div class="text-muted">Tanggal Kirim</div><strong id="displayTanggalKirim"></strong>
+							</div>
+							<div class="col-6 mb-2">
+								<div class="text-muted">Jenis Paket</div><strong id="displayJenisPaket"></strong>
+							</div>
+							<div class="col-6 mb-2">
+								<div class="text-muted">Total Pembayaran</div><strong id="displayTotalPembayaran"></strong>
+							</div>
+						</div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="my-0">Riwayat Perjalanan</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="perjalananList"></div>
+                    </div>
+                </div>
+            </div>
+		</main>
+	</div>
+</div>
+
+<footer class="bg-dark text-white">
+	<div class="container">
+		<div class="py-3 text-center">&copy; 2025 · William · 051923425</div>
+	</div>
+</footer>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/data.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+<script>
+// Daftar status untuk progress bar
+const STATUS_STEPS = ["Diterima", "Dalam Perjalanan", "Dikirim", "Selesai"];
+
+/**
+ * Merender progress bar berdasarkan status saat ini.
+ * @param {string} currentStatus Status paket saat ini.
+ */
+function renderProgressBar(currentStatus) {
+    const $steps = $('.progress-step');
+    // Mencari index status saat ini
+    const currentIndex = STATUS_STEPS.indexOf(currentStatus);
+
+    $steps.each(function(index) {
+        const $step = $(this);
+        $step.removeClass('progress-step-active progress-step-filled');
+        
+        // Ambil nama status dari elemen
+        const stepName = $step.data('status-step');
+        
+        // Cari index status pada elemen
+        const stepIndex = STATUS_STEPS.indexOf(stepName);
+
+        if (stepIndex < currentIndex) {
+            // Langkah status yang SUDAH terlewati
+            $step.addClass('progress-step-filled');
+        } else if (stepIndex === currentIndex) {
+            // Langkah status yang SEDANG aktif
+            $step.addClass('progress-step-active progress-step-filled');
+        }
+        
+        // Khusus untuk langkah pertama
+        if (index === 0) {
+            $step.addClass('progress-step-first');
+        }
+    });
+}
+
+$(document).ready(function() {
+    const $form = $('#trackingForm');
+    const $nomorDO = $('#id');
+    const $trackingResult = $('#trackingResult');
+
+    $form.on('submit', function(e) {
+        e.preventDefault();
+
+		// Sembunyikan feedback pada input
+		hideErrMsg('id');
+
+		// Cek apakah ada input masuk
+        const query = ($nomorDO.val() || '').trim();
+        if (!query) {
+			showErrMsg('id', 'Nomor delivery order harus diisi.');
+            $trackingResult.hide(); // Sembunyikan hasil tracking
+            return;
+        }
+
+        const record = dataTracking[query];
+        if (!record) {
+			showErrMsg('id', 'Nomor delivery order tidak ditemukan.');
+            $trackingResult.hide(); // Sembunyikan hasil tracking
+            return;
+        }
+
+        // Tampilkan bagian hasil tracking
+        $trackingResult.show();
+
+        // Set variabel tanggal agar mudah dibaca oleh pengguna
+        const sendTime = new Date(record.tanggalKirim);
+
+        // Set variabel ke ID yang sudah ditentukan menggunakan jQuery
+		$('#displayNomorDO').text(record.nomorDO || query);
+		$('#displayNamaMahasiswa').text(record.nama || 'N/A');
+
+		// Fungsi tampilkan status sebagai badge dengan warna sesuai status
+		function statusBadge(status){
+			var map = {
+				'Diterima': 'primary',
+				'Dalam Perjalanan': 'warning',
+				'Dikirim': 'info',
+				'Selesai': 'success'
+			};
+			var cls = map[status] || 'secondary';
+			return '<span class="badge bg-' + cls + '">' + (status || '-') + '</span>';
+		}
+
+		// Tampilkan status
+		$('#displayStatus').html(statusBadge(record.status || '-'));
+		$('#displayEkspedisi').text(record.ekspedisi || '-');
+		$('#displayTanggalKirim').text(sendTime.toDateString() || '-');
+		$('#displayJenisPaket').text(record.paket || '-');
+		$('#displayTotalPembayaran').text(record.total ? record.total.toLocaleString('id-ID') : '-');
+
+        // Render Progress Bar
+        renderProgressBar(record.status);
+
+        // Render perjalanan
+        const $list = $('#perjalananList');
+        $list.empty(); // Bersihkan list sebelumnya
+
+        // Membalik urutan perjalanan agar yang terbaru di atas
+        const reversedPerjalanan = Array.isArray(record.perjalanan) ? [...record.perjalanan].reverse() : [];
+
+        if (reversedPerjalanan.length) {
+            $.each(reversedPerjalanan, function(i, p) {
+                const itemHTML = '<div class="timeline-item">' +
+                    '<div class="timeline-dot"></div>' +
+                    '<div class="small text-muted mb-1">' + (p.waktu || '') + '</div>' +
+                    '<p class="mb-0">' + (p.keterangan || '') + '</p>' +
+                    '</div>';
+                $list.append(itemHTML);
+            });
+        } else {
+            const emptyHTML = '<div class="text-muted">Belum ada riwayat perjalanan untuk paket ini.</div>';
+            $list.append(emptyHTML);
+        }
+    });
+});
+</script>
+</body>
+</html>

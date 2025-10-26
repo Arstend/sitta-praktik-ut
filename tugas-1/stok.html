@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SITTA - Informasi Stok Bahan Ajar</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="preload stylesheet" crossorigin="anonymous"/>
+<link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+<header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
+	<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white">Universitas Terbuka</a>
+	<ul class="navbar-nav flex-row d-md-none">
+		<li class="nav-item text-nowrap">
+			<button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars bi" aria-hidden="true"></i></button>
+		</li>
+	</ul>
+</header>
+<div class="container-fluid">
+	<div class="row">
+		<!-- Sidebar left -->
+		<div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+			<div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+				<div class="offcanvas-header">
+					<h5 class="offcanvas-title" id="sidebarMenuLabel">Universitas Terbuka</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+				</div>
+				<div class="offcanvas-body d-md-flex flex-column p-3 pt-lg-3 overflow-y-auto">
+					<!-- Logo -->
+					<div class="d-flex align-items-center gap-3 mb-3">
+						<img src="assets/Logo_Universitas_Terbuka.svg" alt="UT" class="profile-img rounded-circle">
+						<div>
+							<div class="fw-semibold">Universitas Terbuka</div>
+							<small class="text-muted">Aplikasi SITTA</small>
+						</div>
+					</div>
+
+					<!-- Menu -->
+					<div class="list-group mb-2 shadow-sm">
+						<a href="dashboard.html" class="list-group-item list-group-item-action d-flex align-items-center gap-2">
+							<i class="fas fa-tachometer-alt fa-fw"></i>
+							<span>Dashboard</span>
+						</a>
+						<a href="stok.html" class="list-group-item list-group-item-action d-flex align-items-center gap-2 active">
+							<i class="fas fa-book fa-fw"></i>
+							<span>Informasi Bahan Ajar</span>
+						</a>
+						<a href="tracking.html" class="list-group-item list-group-item-action d-flex align-items-center gap-2">
+							<i class="fas fa-file-alt fa-fw"></i>
+							<span>Monitoring Progress</span>
+						</a>
+					</div>
+
+					<!-- Collapsible sub menu laporan -->
+					<div class="mb-2">
+						<button class="btn btn-sm btn-outline-secondary w-100 text-start d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#laporanCollapse" aria-expanded="true" aria-controls="laporanCollapse">
+							<span><i class="fas fa-chart-line me-2"></i> Laporan</span>
+							<i class="fas fa-chevron-down small"></i>
+						</button>
+						<div class="collapse mt-2" id="laporanCollapse">
+							<div class="list-group">
+								<a href="#" class="list-group-item list-group-item-action ps-4">Monitoring DO</a>
+								<a href="#" class="list-group-item list-group-item-action ps-4">Rekap Bahan Ajar</a>
+							</div>
+						</div>
+					</div>
+
+					<hr class="my-3">
+
+					<!-- Utilities -->
+					<div class="list-group mb-3">
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-2"><i class="fas fa-history fa-fw"></i> Histori Transaksi</a>
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-2"><i class="fas fa-cog fa-fw"></i> Settings</a>
+						<a href="index.html" class="list-group-item list-group-item-action d-flex align-items-center gap-2 text-danger"><i class="fas fa-sign-out-alt fa-fw"></i> Keluar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+			<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+				<h1 class="h2">Informasi Stok Bahan Ajar</h1>
+			</div>
+			<noscript>Mohon aktifkan javascript agar halaman ini dapat berfungsi dengan baik. Terima kasih.</noscript>
+
+			<!-- Tambah stok baru -->
+			<p>
+				<a class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modal-add">
+					<i class="fas fa-plus"></i> Tambah Stok Baru
+				</a>
+			</p>
+
+			<div class="row justify-content-center" id="bahanRow"></div>
+         </main>
+	</div>
+</div>
+
+<!-- Menampilkan modal tambah bahan ajar -->
+<div class="modal fade" id="modal-add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal-add" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Tambah Bahan Ajar</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+			</div>
+			<form id="fAdd">
+				<div class="modal-body">
+					<div class="mb-3">
+						<label for="a_kodeLokasi" class="form-label">Kode Lokasi</label>
+						<input type="text" class="form-control" id="a_kodeLokasi" autocomplete="off">
+						<div class="invalid-feedback" id="a_kodeLokasi-msg"></div>
+					</div>
+					<div class="mb-3">
+						<label for="a_kodeBarang" class="form-label">Kode Barang</label>
+						<input type="text" class="form-control" id="a_kodeBarang" autocomplete="off">
+						<div class="invalid-feedback" id="a_kodeBarang-msg"></div>
+					</div>
+					<div class="mb-3">
+						<label for="a_namaBarang" class="form-label">Nama Barang</label>
+						<input type="text" class="form-control" id="a_namaBarang" autocomplete="off">
+						<div class="invalid-feedback" id="a_namaBarang-msg"></div>
+					</div>
+					<div class="mb-3">
+						<label for="a_jenisBarang" class="form-label">Jenis Barang</label>
+						<select class="form-select" id="a_jenisBarang">
+							<option>BMP</option>
+							<option>Non-BMP</option>
+						</select>
+						<div class="invalid-feedback" id="a_jenisBarang-msg"></div>
+					</div>
+					<div class="mb-3">
+						<label for="e_edisi" class="form-label">Edisi</label>
+						<input type="number" class="form-control" id="a_edisi" autocomplete="off">
+						<div class="invalid-feedback" id="a_edisi-msg"></div>
+					</div>
+					<div class="mb-3">
+						<label for="a_stok" class="form-label">Stok</label>
+						<input type="number" class="form-control" id="a_stok" autocomplete="off">
+					</div>
+					<div class="mb-3">
+						<label for="a_cover" class="form-label">Cover</label>
+						<input type="text" class="form-control" id="a_cover" placeholder="URL cover (opsional)" autocomplete="off">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fas fa-times"></i> Batalkan</button>
+					<button type="button" class="btn btn-primary" id="btn-add"><i class="fas fa-plus"></i> Tambah</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- Menampilkan modal rincian dan edit bahan ajar -->
+<div class="modal fade" id="modal-edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal-edit" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Rincian dan Edit Bahan Ajar</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+			</div>
+			<form id="fEdit">
+				<div class="modal-body">
+					<img class="mb-3 d-block mx-auto" id="cover" src="" width="100%">
+					<div class="mb-3">
+						<label for="e_kodeLokasi" class="form-label">Kode Lokasi</label>
+						<input type="text" class="form-control" id="e_kodeLokasi" autocomplete="off">
+						<div class="invalid-feedback" id="e_kodeLokasi-msg"></div>
+					</div>
+					<div class="mb-3">
+						<label for="e_kodeBarang" class="form-label">Kode Barang</label>
+						<input type="text" class="form-control" id="e_kodeBarang" autocomplete="off">
+						<div class="invalid-feedback" id="e_kodeBarang-msg"></div>
+					</div>
+					<div class="mb-3">
+						<label for="e_namaBarang" class="form-label">Nama Barang</label>
+						<input type="text" class="form-control" id="e_namaBarang" autocomplete="off">
+						<div class="invalid-feedback" id="e_namaBarang-msg"></div>
+					</div>
+					<div class="mb-3">
+						<label for="e_jenisBarang" class="form-label">Jenis Barang</label>
+						<select class="form-select" id="e_jenisBarang">
+							<option>BMP</option>
+							<option>Non-BMP</option>
+						</select>
+						<div class="invalid-feedback" id="e_jenisBarang-msg"></div>
+					</div>
+					<div class="mb-3">
+						<label for="e_edisi" class="form-label">Edisi</label>
+						<input type="number" class="form-control" id="e_edisi" autocomplete="off">
+						<div class="invalid-feedback" id="e_edisi-msg"></div>
+					</div>
+					<div class="mb-3">
+						<label for="e_stok" class="form-label">Stok</label>
+						<input type="number" class="form-control" id="e_stok" autocomplete="off">
+					</div>
+					<div class="mb-3">
+						<label for="e_cover" class="form-label">Cover</label>
+						<input type="text" class="form-control" id="e_cover" placeholder="URL cover (opsional)" autocomplete="off">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" id="btn-delete"><i class="fas fa-trash"></i> Hapus</button>
+					<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fas fa-times"></i> Batalkan</button>
+					<button type="button" class="btn btn-primary" id="btn-update"><i class="fas fa-save"></i> Perbarui</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<footer class="bg-dark text-white">
+	<div class="container">
+		<div class="py-3 text-center">&copy; 2025 · William · 051923425</div>
+	</div>
+</footer>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/data.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+<script>
+// Sembunyikan semua invalid pada input dari modal register
+function hideAllMsg(){
+	hideErrMsg('a_kodeLokasi');
+	hideErrMsg('a_kodeBarang');
+	hideErrMsg('a_namaBarang');
+	hideErrMsg('a_jenisBarang');
+	hideErrMsg('a_edisi');
+	hideErrMsg('a_stok');
+	hideErrMsg('a_cover');
+	hideErrMsg('e_kodeLokasi');
+	hideErrMsg('e_kodeBarang');
+	hideErrMsg('e_namaBarang');
+	hideErrMsg('e_jenisBarang');
+	hideErrMsg('e_edisi');
+	hideErrMsg('e_stok');
+	hideErrMsg('e_cover');
+}
+
+$(function(){
+    var $container = $('#bahanRow');
+    if(!$container.length) return;
+    $container.empty();
+
+	// Sumber gambar : https://dummyimage.com/500x700/8a8a8a/ffffff&text=Placeholder
+    var placeholder = 'img/placeholder.png';
+
+    function renderCard(item){
+        var $col = $('<div>').addClass('col-md-3 col-6 mb-4').attr('data-kode', item.kodeBarang);
+        var $card = $('<div>').addClass('card h-100 text-center shadow-sm');
+        var $img = $('<img>')
+            .addClass('card-img-top img-fluid')
+            .css({'object-fit':'cover','cursor':'pointer'})
+            .attr('src', item.cover || placeholder)
+            .attr('alt', item.namaBarang || '')
+            .on('click', function(){ btnEdit(item.kodeBarang); });
+        var $body = $('<div>').addClass('card-body py-2');
+        var $title = $('<h6>').addClass('card-title mb-0')
+            .append($('<a>').attr('href','#').addClass('text-decoration-none text-dark').text(item.namaBarang || '').on('click', function(e){ e.preventDefault(); btnEdit(item.kodeBarang); }));
+        var $meta = $('<small>').addClass('text-muted d-block mt-2').text((item.jenisBarang || '-') + ' · Edisi ' + (item.edisi || '-'));
+        // Tentukan kelas badge berdasarkan nilai stok :
+        // - Jika stok > 0  => bg-primary
+        // - Jika stok == 0 => bg-danger
+        // - Jika stok null / undefined => bg-secondary (tampil '-')
+        var stokVal = item.stok;
+        var badgeClass = 'bg-secondary text-dark';
+        if (typeof stokVal === 'number') {
+            if (stokVal > 0) badgeClass = 'bg-primary text-white';
+            else if (stokVal === 0) badgeClass = 'bg-danger text-white';
+            else badgeClass = 'bg-warning text-dark'; // optional: negatif
+        }
+        var $badge = $('<div>').addClass('mt-2').append(
+            $('<span>').addClass('badge ' + badgeClass).text('Stok: ' + (stokVal != null ? stokVal : '-'))
+        );
+        $body.append($title, $meta, $badge);
+        $card.append($img, $body);
+        $col.append($card);
+        $container.append($col);
+    }
+
+    // initial render
+    if(Array.isArray(dataBahanAjar)) dataBahanAjar.forEach(renderCard);
+
+	// Tambah bahan ajar baru
+    $('#btn-add').on('click', function(e){
+        e.preventDefault();
+
+		// Sembunyikan semua feedback pada input
+		hideAllMsg();
+		var isError = false;
+
+		// Ambil data dari input
+        var kodeLokasi = $('#a_kodeLokasi').val().trim();
+        var kodeBarang = $('#a_kodeBarang').val().trim();
+        var namaBarang = $('#a_namaBarang').val().trim();
+        var jenisBarang = $('#a_jenisBarang').val().trim();
+        var edisi = $('#a_edisi').val().trim();
+        var stok = parseInt($('#a_stok').val(),10);
+        stok = isNaN(stok) ? 0 : stok;
+        var cover = $('#a_cover').val().trim() || placeholder;
+
+		// Jika kode lokasi kosong
+        if(!namaBarang){
+			showErrMsg('a_kodeLokasi', 'Kode Lokasi harus diisi.');
+            var isError = true;
+        }
+
+		// Jika nama barang kosong
+        if(!namaBarang){
+			showErrMsg('a_namaBarang', 'Nama Barang harus diisi.');
+            var isError = true;
+        }
+
+		// Jika kode barang kosong
+        if(!kodeBarang){
+			showErrMsg('a_kodeBarang', 'Kode Barang harus diisi.');
+            var isError = true;
+        }
+
+		// Jika jenis barang kosong
+        if(!jenisBarang){
+			showErrMsg('a_jenisBarang', 'Jenis Barang harus diisi.');
+            var isError = true;
+        }
+
+		// Jika edisi kosong
+        if(!edisi){
+			showErrMsg('a_edisi', 'Edisi harus diisi.');
+            var isError = true;
+        }
+
+		// Jika error adalah true, maka batalkan login
+		if(isError == true){
+			return;
+		}
+
+		// Jika kode barang sama dengan bahan ajar yang terdaftar
+        if(dataBahanAjar.find(function(r){ return r.kodeBarang === kodeBarang; })){
+			showErrMsg('a_kodeBarang', 'Kode Barang sudah ada, gunakan Kode Barang yang berbeda.');
+            return;
+        }
+
+        var newItem = {
+            kodeLokasi: kodeLokasi || '-',
+            kodeBarang: kodeBarang,
+            namaBarang: namaBarang,
+            jenisBarang: jenisBarang || '-',
+            edisi: edisi || '-',
+            stok: stok,
+            cover: cover
+        };
+
+        dataBahanAjar.push(newItem);
+        renderCard(newItem);
+
+        // Reset form dan sembunyikan modal
+        $('#fAdd')[0] && $('#fAdd')[0].reset();
+
+		// Tutup modal
+		$('#modal-add').modal('hide');
+    });
+
+	// Reset form ketika modal-add disembunyikan
+	$('#modal-add').on('hidden.bs.modal', function(){
+		// Reset form tambah
+		$('#fAdd')[0] && $('#fAdd')[0].reset();
+
+		// Sembunyikan semua feedback pada input
+		hideAllMsg();
+	});
+
+	// Tampilkan modal detail dan edit
+    window.btnEdit = function(kodeBarang){
+        var rec = dataBahanAjar.find(function(r){ return r.kodeBarang === kodeBarang; });
+        if(!rec) return;
+
+        $('#cover').attr('src', rec.cover || placeholder).attr('alt', rec.namaBarang || '');
+        $('#e_kodeLokasi').val(rec.kodeLokasi || '');
+        $('#e_kodeBarang').val(rec.kodeBarang || '');
+        $('#e_namaBarang').val(rec.namaBarang || '');
+        $('#e_jenisBarang').val(rec.jenisBarang || '');
+        $('#e_edisi').val(rec.edisi || '');
+        $('#e_stok').val(rec.stok != null ? rec.stok : '');
+        $('#e_cover').val(rec.cover || '');
+
+        // Simpan kode saat ini didalam elemen modal
+        $('#modal-edit').data('kodeBarang', kodeBarang);
+
+		// Tutup modal
+		$('#modal-edit').modal('toggle');
+    };
+
+    // alias detail -> btnEdit (in case markup calls detail)
+    window.detail = window.btnEdit;
+
+    // Update bahan ajar
+    $('#btn-update').on('click', function(e){
+		e.preventDefault();
+
+		// Sembunyikan semua feedback pada input
+		hideAllMsg();
+		var isError = false;
+
+		// Ambil data dari input
+        var kodeLokasi = $('#e_kodeLokasi').val().trim();
+        var kodeBarang = $('#e_kodeBarang').val().trim();
+        var namaBarang = $('#e_namaBarang').val().trim();
+        var jenisBarang = $('#e_jenisBarang').val().trim();
+        var edisi = $('#e_edisi').val().trim();
+        var stok = parseInt($('#e_stok').val(),10);
+        stok = isNaN(stok) ? 0 : stok;
+        var cover = $('#e_cover').val().trim() || placeholder;
+
+		// Jika kode lokasi kosong
+        if(!namaBarang){
+			showErrMsg('e_kodeLokasi', 'Kode Lokasi harus diisi.');
+            var isError = true;
+        }
+
+		// Jika nama barang kosong
+        if(!namaBarang){
+			showErrMsg('e_namaBarang', 'Nama Barang harus diisi.');
+            var isError = true;
+        }
+
+		// Jika kode barang kosong
+        if(!kodeBarang){
+			showErrMsg('e_kodeBarang', 'Kode Barang harus diisi.');
+            var isError = true;
+        }
+
+		// Jika jenis barang kosong
+        if(!jenisBarang){
+			showErrMsg('e_jenisBarang', 'Jenis Barang harus diisi.');
+            var isError = true;
+        }
+
+		// Jika edisi kosong
+        if(!edisi){
+			showErrMsg('e_edisi', 'Edisi harus diisi.');
+            var isError = true;
+        }
+
+		// Jika error adalah true, maka batalkan login
+		if(isError == true){
+			return;
+		}
+
+		// Jika kode barang sama dengan bahan ajar yang terdaftar
+		var originalKode = $('#modal-edit').data('kodeBarang') || '';
+		// Jika kode barang diubah dan sama dengan item lain, tampilkan error
+		if(kodeBarang !== originalKode){
+			if(dataBahanAjar.find(function(r){ return r.kodeBarang === kodeBarang; })){
+				showErrMsg('e_kodeBarang', 'Kode Barang sudah ada, gunakan Kode Barang yang berbeda jika ingin mengubah Kode Barang.');
+				return;
+			}
+		}
+
+        var kode = $('#modal-edit').data('kodeBarang');
+        if(!kode) return;
+
+        var idx = dataBahanAjar.findIndex(function(r){ return r.kodeBarang === kode; });
+        if(idx === -1) return;
+
+        var updated = {
+            kodeLokasi: $('#e_kodeLokasi').val().trim() || '-',
+            kodeBarang: $('#e_kodeBarang').val().trim() || kode, // keep old kode if empty
+            namaBarang: $('#e_namaBarang').val().trim() || '-',
+            jenisBarang: $('#e_jenisBarang').val().trim() || '-',
+            edisi: $('#e_edisi').val().trim() || '-',
+            stok: parseInt($('#e_stok').val(),10) || 0,
+            cover: $('#e_cover').val().trim() || dataBahanAjar[idx].cover || placeholder
+        };
+
+        // replace array item
+        dataBahanAjar[idx] = updated;
+
+        // update DOM: remove old card and render updated card
+        $container.find('[data-kode="'+ kode +'"]').remove();
+        renderCard(updated);
+
+		// Tutup modal
+		$('#modal-edit').modal('hide');
+    });
+
+	// Reset form ketika modal-edit disembunyikan
+	$('#modal-edit').on('hidden.bs.modal', function(){
+		// Reset form edit
+		$('#fEdit')[0] && $('#fEdit')[0].reset();
+
+		// Hapus atribut src dan alt pada gambar cover
+		$('#cover').attr('src', null).attr('alt', null);
+
+		// Sembunyikan semua feedback pada input
+		hideAllMsg();
+	});
+
+	// Hapus item dengan konfirmasi
+    $('#btn-delete').on('click', function(){
+        var kode = $('#modal-edit').data('kodeBarang');
+        if(!kode) return;
+        if(!confirm('Yakin ingin menghapus bahan ajar dengan kode "' + kode + '"?')) return;
+
+        var idx = -1;
+        for(var i=0;i<dataBahanAjar.length;i++){
+            if(dataBahanAjar[i].kodeBarang === kode){ idx = i; break; }
+        }
+        if(idx !== -1){
+            dataBahanAjar.splice(idx,1);
+            $container.find('[data-kode="'+ kode +'"]').remove();
+        }
+
+		// Tutup modal
+		$('#modal-edit').modal('hide');
+    });
+});
+</script>
+</body>
+</html>
