@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!--
+Host : SITTA
+Author : Arstend
+Coding : Arstend (https://arstend.id)
+-->
+
+<!-- Meta -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="Aplikasi SITTA, SITTA, Pemrograman Berbasis Web">
+<meta name="title" content="SITTA - Tracking Delivery Order Bahan Ajar">
+<meta name="description" content="Aplikasi SITTA untuk tugas 2 praktikum mata kuliah Pemrograman Berbasis Web">
+<meta name="generator" content="Visual Studio Code">
+<meta name="language" content="id">
+<meta name="geo.region" content="">
+<meta name="geo.placename" content="">
+
+<!-- Facebook -->
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="website">
+<meta property="og:title" content="SITTA - Tracking Delivery Order Bahan Ajar">
+<meta property="og:description" content="Aplikasi SITTA untuk tugas 2 praktikum mata kuliah Pemrograman Berbasis Web">
+<meta property="og:url" content="https://arstend.id/sitta-praktik/tugas2/">
+<meta property="og:site_name" content="SITTA">
+
+<title>SITTA - Tracking Delivery Order Bahan Ajar</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="preload stylesheet" crossorigin="anonymous"/>
+<link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+<div id="app">
+	<header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
+		<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white">Universitas Terbuka</a>
+		<ul class="navbar-nav flex-row d-md-none">
+			<li class="nav-item text-nowrap">
+				<button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars bi" aria-hidden="true"></i></button>
+			</li>
+		</ul>
+	</header>
+<div class="container-fluid">
+	<div class="row">
+		<!-- Sidebar left -->
+		<div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+			<div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+				<div class="offcanvas-header">
+					<h5 class="offcanvas-title" id="sidebarMenuLabel">Universitas Terbuka</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+				</div>
+				<div class="offcanvas-body d-md-flex flex-column p-3 pt-lg-3 overflow-y-auto">
+					<!-- Logo -->
+					<div class="d-flex align-items-center gap-3 mb-3">
+						<img src="assets/Logo_Universitas_Terbuka.svg" alt="UT" class="profile-img rounded-circle">
+						<div>
+							<div class="fw-semibold">Universitas Terbuka</div>
+							<small class="text-muted">Aplikasi SITTA</small>
+						</div>
+					</div>
+
+					<!-- Menu -->
+					<div class="list-group mb-2 shadow-sm">
+						<a href="index.html" class="list-group-item list-group-item-action d-flex align-items-center gap-2">
+							<i class="fas fa-tachometer-alt fa-fw"></i>
+							<span>Dashboard</span>
+						</a>
+						<a href="stok.html" class="list-group-item list-group-item-action d-flex align-items-center gap-2">
+							<i class="fas fa-book fa-fw"></i>
+							<span>Informasi Bahan Ajar</span>
+						</a>
+						<a class="list-group-item list-group-item-action d-flex align-items-center gap-2 active">
+							<i class="fas fa-file-alt fa-fw"></i>
+							<span>Monitoring Progress</span>
+						</a>
+					</div>
+
+					<!-- Collapsible sub menu laporan -->
+					<div class="mb-2">
+						<button class="btn btn-sm btn-outline-secondary w-100 text-start d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#laporanCollapse" aria-expanded="true" aria-controls="laporanCollapse">
+							<span><i class="fas fa-chart-line me-2"></i> Laporan</span>
+							<i class="fas fa-chevron-down small"></i>
+						</button>
+						<div class="collapse mt-2" id="laporanCollapse">
+							<div class="list-group">
+								<a href="#" class="list-group-item list-group-item-action ps-4">Monitoring DO</a>
+								<a href="#" class="list-group-item list-group-item-action ps-4">Rekap Bahan Ajar</a>
+							</div>
+						</div>
+					</div>
+
+					<hr class="my-3">
+
+					<!-- Utilities -->
+					<div class="list-group mb-3">
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-2"><i class="fas fa-history fa-fw"></i> Histori Transaksi</a>
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-2"><i class="fas fa-cog fa-fw"></i> Settings</a>
+						<a href="index.html" class="list-group-item list-group-item-action d-flex align-items-center gap-2 text-danger"><i class="fas fa-sign-out-alt fa-fw"></i> Keluar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+			<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+				<h1 class="h2">Tracking Delivery Order Bahan Ajar</h1>
+			</div>
+
+			<!-- Input Delivery Order Baru -->
+			<div class="card shadow-sm mb-4">
+				<div class="card-header bg-primary text-white fw-bold">Input Delivery Order Baru</div>
+				<div class="card-body">
+					<div class="row g-3">
+						<div class="col-md-4">
+							<label class="form-label fw-semibold">Nomor DO</label>
+							<input type="text" class="form-control" id="nomorDO" v-model="form.nomorDO" readonly>
+							<div class="invalid-feedback" id="nomorDO-msg"></div>
+						</div>
+						<div class="col-md-4">
+							<label class="form-label fw-semibold">NIM</label>
+							<input type="text" class="form-control" id="nim" v-model="form.nim" placeholder="Masukkan NIM" autocomplete="off">
+							<div class="invalid-feedback" id="nim-msg"></div>
+						</div>
+						<div class="col-md-4">
+							<label class="form-label fw-semibold">Nama Mahasiswa</label>
+							<input type="text" class="form-control" id="nama" v-model="form.nama" placeholder="Masukkan Nama" autocomplete="off">
+							<div class="invalid-feedback" id="nama-msg"></div>
+						</div>
+
+						<div class="col-md-4">
+							<label class="form-label fw-semibold">Ekspedisi</label>
+							<select class="form-select" id="ekspedisi" v-model="form.ekspedisi">
+								<option disabled value="">Pilih Ekspedisi</option>
+								<option v-for="(exp, idx) in ekspedisiOptions" :key="idx" :value="exp.kode">{{ exp.nama }}</option>
+							</select>
+							<div class="invalid-feedback" id="ekspedisi-msg"></div>
+						</div>
+
+						<div class="col-md-4">
+							<label class="form-label fw-semibold">Paket Bahan Ajar</label>
+							<select class="form-select" id="paketKode" v-model="form.paketKode">
+								<option disabled value="">Pilih Paket</option>
+								<option v-for="p in allPaketList" :key="p.kode" :value="p.kode">{{ p.kode }} - {{ p.nama }}</option>
+							</select>
+							<div class="invalid-feedback" id="paketKode-msg"></div>
+						</div>
+
+						<div class="col-md-4">
+							<label class="form-label fw-semibold">Tanggal Kirim</label>
+							<input type="date" class="form-control" id="tanggalKirim" v-model="form.tanggalKirim" />
+							<div class="invalid-feedback" id="tanggalKirim-msg"></div>
+						</div>
+					</div>
+
+					<!-- Detail paket terpilih -->
+					<div v-if="paketDetail" class="mt-4 p-3 border rounded bg-light-subtle">
+						<h6 class="fw-bold mb-2">Detail Paket: {{ paketDetail.nama }}</h6>
+						<ul class="mb-2">
+							<li v-for="(isi, i) in paketIsiList(paketDetail)" :key="i">{{ isi }}</li>
+						</ul>
+						<div>
+							<strong>Total Harga:</strong> <span class="text-success">{{ totalHarga }}</span>
+						</div>
+					</div>
+
+					<div class="text-end mt-4">
+						<button class="btn btn-danger" @click="newDO"><i class="fas fa-undo"></i> Reset</button>
+						<button class="btn btn-primary  ms-2" @click="saveDO"><i class="fas fa-save"></i> Simpan</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- Daftar Delivery Order -->
+			<div class="card shadow-sm">
+				<div class="card-header bg-dark text-white fw-bold">Daftar Delivery Order</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-striped table-hover align-middle">
+							<thead class="table-secondary">
+								<tr>
+									<th>No.</th>
+									<th>Nomor DO</th>
+									<th>NIM</th>
+									<th>Nama</th>
+									<th>Paket</th>
+									<th>Ekspedisi</th>
+									<th>Tanggal Kirim</th>
+									<th>Total</th>
+									<th>Status</th>
+									<th>---</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="(o, index) in displayedOrders" :key="o.nomorDO">
+									<td>{{ index + 1 }}</td>
+									<td>{{ o.nomorDO }}</td>
+									<td>{{ o.nim }}</td>
+									<td>{{ o.nama }}</td>
+									<td>{{ o.paketNama || o.paketKode }}</td>
+									<td>{{ o.ekspedisi }}</td>
+									<td>{{ fmtTanggalDisplay(o.tanggalKirim) }}</td>
+									<td>{{ formatRupiah(o.total) }}</td>
+									<td><span :class="badgeClass(o.status)">{{ o.status }}</span></td>
+									<td>
+										<button class="btn btn-sm btn-primary text-white" @click="openDetail(o)"><i class="fas fa-eye"></i> Detail</button>
+									</td>
+								</tr>
+								<tr v-if="displayedOrders.length === 0">
+									<td colspan="10" class="text-center text-muted py-3">Belum ada Delivery Order</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+
+	<!-- Modal Detail Delivery Order -->
+	<!-- Teleport modal + backdrop ke body -->
+	<teleport to="body">
+		<transition name="modal">
+			<div v-if="showDetailModal" class="modal fade show" tabindex="-1" :class="{ 'show d-block': showDetailModal }" style="background: rgba(0,0,0,0.4)" data-bs-backdrop="static" aria-modal="true" role="dialog" style="display:block;">
+				<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+					<div class="modal-content">
+						<div class="modal-header bg-primary text-white">
+							<h5 class="modal-title">Detail Delivery Order</h5>
+							<button type="button" class="btn-close btn-close-white" @click="closeDetail"></button>
+						</div>
+						<div class="modal-body" v-if="detailOrder">
+							<div class="mb-3"><strong>Nomor DO :</strong> {{ detailOrder.nomorDO }}</div>
+							<div class="mb-3"><strong>NIM :</strong> {{ detailOrder.nim }}</div>
+							<div class="mb-3"><strong>Nama Mahasiswa :</strong> {{ detailOrder.nama }}</div>
+							<div class="mb-3"><strong>Paket :</strong> {{ detailOrder.paketNama || detailOrder.paketKode }}</div>
+							<div class="mb-3"><strong>Ekspedisi :</strong> {{ detailOrder.ekspedisi }}</div>
+							<div class="mb-3"><strong>Total :</strong> {{ formatRupiah(detailOrder.total) }}</div>
+							<div class="mb-3"><strong>Status :</strong> <span :class="badgeClass(detailOrder.status)">{{ detailOrder.status }}</span></div>
+
+							<hr />
+							<h6 class="fw-bold">Riwayat Perjalanan</h6>
+							<ul class="list-group">
+								<li v-for="(r, idx) in getPerjalananSorted(detailOrder)" :key="idx" class="list-group-item">
+									<strong>{{ fmtTanggalWaktuDisplay(r.waktu) }}</strong> - {{ r.keterangan || '-' }}
+								</li>
+								<li v-if="!detailOrder.perjalanan || !detailOrder.perjalanan.length" class="list-group-item text-muted text-center">Belum ada riwayat perjalanan</li>
+							</ul>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-danger" @click="closeDetail"><i class="fas fa-times"></i> Tutup</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</transition>
+		<transition name="backdrop-fade">
+			<div v-if="showDetailModal" class="modal-backdrop fade show"></div>
+		</transition>
+	</teleport>
+
+	<footer class="bg-dark text-white">
+		<div class="container">
+			<div class="py-3 text-center">&copy; 2025 · William · 051923425 · <a href="https://github.com/Arstend/sitta-praktik-ut" target="_blank"><i class="fab fa-github"></i> Open Source Project</a></div>
+		</div>
+	</footer>
+</div>
+
+<!-- Vendor -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+
+<!-- Muat script dummy dan tracking-app -->
+<script type="text/javascript" src="js/dataBahanAjar.js"></script>
+<script type="text/javascript" src="js/tracking-app.js"></script>
+
+</body>
+</html>

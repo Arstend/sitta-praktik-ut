@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!--
+Host : SITTA
+Author : Arstend
+Coding : Arstend (https://arstend.id)
+-->
+
+<!-- Meta -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="Aplikasi SITTA, SITTA, Pemrograman Berbasis Web">
+<meta name="title" content="SITTA - Informasi Stok Bahan Ajar">
+<meta name="description" content="Aplikasi SITTA untuk tugas 2 praktikum mata kuliah Pemrograman Berbasis Web">
+<meta name="generator" content="Visual Studio Code">
+<meta name="language" content="id">
+<meta name="geo.region" content="">
+<meta name="geo.placename" content="">
+
+<!-- Facebook -->
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="website">
+<meta property="og:title" content="SITTA - Informasi Stok Bahan Ajar">
+<meta property="og:description" content="Aplikasi SITTA untuk tugas 2 praktikum mata kuliah Pemrograman Berbasis Web">
+<meta property="og:url" content="https://arstend.id/sitta-praktik/tugas2/">
+<meta property="og:site_name" content="SITTA">
+
+<title>SITTA - Informasi Stok Bahan Ajar</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="preload stylesheet" crossorigin="anonymous"/>
+<link href="css/style.css" rel="stylesheet" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+<div id="app">
+	<header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
+		<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white">Universitas Terbuka</a>
+		<ul class="navbar-nav flex-row d-md-none">
+			<li class="nav-item text-nowrap">
+				<button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars bi" aria-hidden="true"></i></button>
+			</li>
+		</ul>
+	</header>
+	<div class="container-fluid">
+		<div class="row">
+			<!-- Sidebar left -->
+			<div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+				<div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="sidebarMenuLabel">Universitas Terbuka</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+					</div>
+					<div class="offcanvas-body d-md-flex flex-column p-3 pt-lg-3 overflow-y-auto">
+						<!-- Logo -->
+						<div class="d-flex align-items-center gap-3 mb-3">
+							<img src="assets/Logo_Universitas_Terbuka.svg" alt="UT" class="profile-img rounded-circle">
+							<div>
+								<div class="fw-semibold">Universitas Terbuka</div>
+								<small class="text-muted">Aplikasi SITTA</small>
+							</div>
+						</div>
+
+						<!-- Menu -->
+						<div class="list-group mb-2 shadow-sm">
+							<a href="index.html" class="list-group-item list-group-item-action d-flex align-items-center gap-2">
+								<i class="fas fa-tachometer-alt fa-fw"></i>
+								<span>Dashboard</span>
+							</a>
+							<a href="stok.html" class="list-group-item list-group-item-action d-flex align-items-center gap-2 active">
+								<i class="fas fa-book fa-fw"></i>
+								<span>Informasi Bahan Ajar</span>
+							</a>
+							<a href="tracking.html" class="list-group-item list-group-item-action d-flex align-items-center gap-2">
+								<i class="fas fa-file-alt fa-fw"></i>
+								<span>Monitoring Progress</span>
+							</a>
+						</div>
+
+						<!-- Collapsible sub menu laporan -->
+						<div class="mb-2">
+							<button class="btn btn-sm btn-outline-secondary w-100 text-start d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#laporanCollapse" aria-expanded="true" aria-controls="laporanCollapse">
+								<span><i class="fas fa-chart-line me-2"></i> Laporan</span>
+								<i class="fas fa-chevron-down small"></i>
+							</button>
+							<div class="collapse mt-2" id="laporanCollapse">
+								<div class="list-group">
+									<a href="#" class="list-group-item list-group-item-action ps-4">Monitoring DO</a>
+									<a href="#" class="list-group-item list-group-item-action ps-4">Rekap Bahan Ajar</a>
+								</div>
+							</div>
+						</div>
+
+						<hr class="my-3">
+
+						<!-- Utilities -->
+						<div class="list-group mb-3">
+							<a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-2"><i class="fas fa-history fa-fw"></i> Histori Transaksi</a>
+							<a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-2"><i class="fas fa-cog fa-fw"></i> Settings</a>
+							<a href="index.html" class="list-group-item list-group-item-action d-flex align-items-center gap-2 text-danger"><i class="fas fa-sign-out-alt fa-fw"></i> Keluar</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+					<h1 class="h2">Informasi Stok Bahan Ajar</h1>
+				</div>
+				<noscript>Mohon aktifkan javascript agar halaman ini dapat berfungsi dengan baik. Terima kasih.</noscript>
+
+				<!-- Tambah stok baru -->
+				<p>
+					<button class="btn btn-sm btn-primary me-2" @click="showAddModal = true"><i class="fas fa-plus"></i> Tambah Stok Baru</button>
+					<button class="btn btn-sm btn-secondary" @click="resetFilters">Reset Filter & Sort</button>
+				</p>
+
+				<input type="text" v-model="filter" placeholder="Cari..." class="form-control mb-3" />
+
+				<!-- Filter dan Sort Controls -->
+				<div class="row mb-3">
+					<div class="col-md-3">
+						<label class="form-label">Filter UT-Daerah</label>
+						<select class="form-select" v-model="selectedUpbjj">
+							<option value="">Semua UT-Daerah</option>
+							<option v-for="u in upbjjList" :key="u" :value="u">{{ u }}</option>
+						</select>
+					</div>
+					<div class="col-md-3" v-if="selectedUpbjj">
+						<label class="form-label">Filter Kategori Mata Kuliah</label>
+						<select class="form-select" v-model="selectedKategori">
+							<option value="">Semua Kategori</option>
+							<option v-for="k in kategoriList" :key="k" :value="k">{{ k }}</option>
+						</select>
+					</div>
+					<div class="col-md-3">
+						<label class="form-label">Filter Stok Menipis / Kosong</label>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="filterLowStock" v-model="filterLowStock">
+							<label class="form-check-label" for="filterLowStock">Tampilkan Stok Menipis / Kosong</label>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<label class="form-label">Sort Berdasarkan</label>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="sortBy" id="sortJudul" value="judul" v-model="sortBy">
+							<label class="form-check-label" for="sortJudul">Judul</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="sortBy" id="sortQty" value="qty" v-model="sortBy">
+							<label class="form-check-label" for="sortQty">Stok (qty)</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="sortBy" id="sortHarga" value="harga" v-model="sortBy">
+							<label class="form-check-label" for="sortHarga">Harga</label>
+						</div>
+					</div>
+				</div>
+				
+
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover table-striped">
+						<thead>
+							<th>Kode</th><th>Judul</th><th>Kategori</th><th>UPBJJ</th><th>Lokasi Rak</th><th>Harga</th><th>Stok</th><th>Batas Stok Aman</th><th>Status</th><th>---</th>
+						</thead>
+						<tbody>
+							<tr v-for="item in filteredItems" :key="item.kode">
+								<td>{{ item.kode }}</td>
+								<td>
+									<a href="#" @click.prevent="editItem(item)">{{ item.judul }}</a>
+									<i v-if="item.catatanHTML" class="fas fa-question-circle ms-2 text-info" tabindex="0" role="button" v-bind:data-bs-toggle="'popover'" v-bind:data-bs-content="item.catatanHTML" data-bs-html="true" data-bs-title="Catatan" data-bs-placement="right" data-bs-trigger="focus"></i>
+								</td>
+								<td>{{ item.kategori }}</td>
+								<td>{{ item.upbjj }}</td>
+								<td>{{ item.lokasiRak }}</td>
+								<td>{{ item.harga }}</td>
+								<td>{{ item.qty }}</td>
+								<td>{{ item.safety }}</td>
+								<!-- render badge HTML yang dikembalikan statusBadge -->
+								<td v-html="statusBadge(item)"></td>
+								<td>
+									<div class="btn-group" role="group">
+										<button class="btn btn-primary" @click="editItem(item)"><i class="fas fa-edit"></i></button>
+										<button class="btn btn-danger" @click="deleteItem(item)"><i class="fas fa-trash"></i></button>
+									</div>
+								</td>
+							</tr>
+							<tr v-if="filteredItems.length === 0">
+								<td colspan="10" class="text-center">Tidak ada data</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<!-- Modal Add -->
+				<!-- Teleport Add Modal + Backdrop ke body -->
+				<teleport to="body">
+					<transition name="modal">
+						<div v-if="showAddModal" class="modal fade show" data-bs-backdrop="static" aria-modal="true" role="dialog" style="display:block;">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title">Tambah Bahan Ajar</h5>
+										<button type="button" class="btn-close" @click="showAddModal = false"></button>
+									</div>
+									<form @submit.prevent="addItem" novalidate>
+										<div class="modal-body">
+											<div v-if="showErrMsg" class="alert alert-danger">Kode sudah ada. Gunakan kode lain.</div>
+											<div class="mb-3">
+												<label class="form-label">Kode</label>
+												<input type="text" class="form-control" id="kode-add" v-model="newItem.kode" required>
+												<div class="invalid-feedback" id="kode-add-msg"></div>
+											</div>
+											<div class="mb-3">
+												<label class="form-label">Judul</label>
+												<input type="text" class="form-control" id="judul-add" v-model="newItem.judul" required>
+												<div class="invalid-feedback" id="judul-add-msg"></div>
+											</div>
+											<div class="mb-3">
+												<label class="form-label">Kategori</label>
+												<select class="form-select" id="kategori-add" v-model="newItem.kategori">
+													<option v-for="k in kategoriList" :key="k" :value="k">{{ k }}</option>
+												</select>
+												<div class="invalid-feedback" id="kategori-add-msg"></div>
+											</div>
+											<div class="mb-3">
+												<label class="form-label">UPBJJ</label>
+												<select class="form-select" v-model="newItem.upbjj">
+													<option v-for="u in upbjjList" :key="u" :value="u">{{ u }}</option>
+												</select>
+												<div class="invalid-feedback" id="upbjj-add-msg"></div>
+											</div>
+											<div class="mb-3">
+												<label class="form-label">Lokasi Rak</label>
+												<input type="text" class="form-control" id="lokasiRak-add" v-model="newItem.lokasiRak">
+												<div class="invalid-feedback" id="lokasiRak-add-msg"></div>
+											</div>
+											<div class="mb-3">
+												<label class="form-label">Harga</label>
+												<input type="number" class="form-control" v-model.number="newItem.harga">
+												<div class="invalid-feedback" id="harga-add-msg"></div>
+											</div>
+											<div class="mb-3">
+												<label class="form-label">Stok (qty)</label>
+												<div class="input-group">
+													<button type="button" class="btn btn-outline-secondary" @click="changeQty(newItem, 'qty', -1)">-</button>
+													<input type="number" class="form-control text-center" v-model.number="newItem.qty" required>
+													<button type="button" class="btn btn-outline-secondary" @click="changeQty(newItem, 'qty', 1)">+</button>
+												</div>
+											</div>
+											<div class="mb-3">
+												<label class="form-label">Batas Stok Aman (safety)</label>
+												<div class="input-group">
+													<button type="button" class="btn btn-outline-secondary" @click="changeQty(newItem, 'safety', -1)">-</button>
+													<input type="number" class="form-control text-center" v-model.number="newItem.safety" required>
+													<button type="button" class="btn btn-outline-secondary" @click="changeQty(newItem, 'safety', 1)">+</button>
+												</div>
+											</div>
+											<div class="mb-3">
+												<label class="form-label">Catatan</label>
+												<textarea class="form-control" v-model="newItem.catatanHTML"></textarea>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-danger" @click="showAddModal = false"><i class="fas fa-times"></i> Batalkan</button>
+											<button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Tambah</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</transition>
+					<transition name="backdrop-fade">
+						<div v-if="showAddModal" class="modal-backdrop fade show"></div>
+					</transition>
+				</teleport>
+
+				<!-- Modal Edit -->
+				<!-- Teleport Edit Modal + Backdrop ke body -->
+				<teleport to="body">
+					<transition name="modal">
+						<div v-if="showEditModal" class="modal fade show" data-bs-backdrop="static" aria-modal="true" role="dialog" style="display:block;">
+							<div class="modal-dialog modal-dialog-centered">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title">Edit Bahan Ajar</h5>
+										<button type="button" class="btn-close" @click="showEditModal = false"></button>
+									</div>
+									<form @submit.prevent="updateItem" novalidate>
+										<div class="modal-body">
+											<div v-if="showErrMsg" class="alert alert-danger">Kode sudah ada. Gunakan kode lain.</div>
+											<div class="mb-3">
+												<label class="form-label">Kode</label>
+												<input type="text" class="form-control" id="kode-edit" v-model="currentItem.kode" required>
+												<div class="invalid-feedback" id="kode-edit-msg"></div>
+											</div>
+											<div class="mb-3">
+												<label class="form-label">Judul</label>
+												<input type="text" class="form-control" id="judul-edit" v-model="currentItem.judul" required>
+												<div class="invalid-feedback" id="judul-edit-msg"></div>
+											</div>
+											<div class="mb-3">
+												<label class="form-label">Kategori</label>
+												<select class="form-select" id="kategori-edit" v-model="currentItem.kategori">
+													<option value=""></option>
+													<option v-for="k in kategoriList" :key="k" :value="k">{{ k }}</option>
+												</select>
+												<div class="invalid-feedback" id="kategori-edit-msg"></div>
+											</div>
+											<div class="mb-3">
+												<label class="form-label">UPBJJ</label>
+												<select class="form-select" id="upbjj-edit" v-model="currentItem.upbjj">
+													<option value=""></option>
+													<option v-for="u in upbjjList" :key="u" :value="u">{{ u }}</option>
+												</select>
+												<div class="invalid-feedback" id="upbjj-edit-msg"></div>
+											</div>
+											<div class="mb-3">
+												<label class="form-label">Lokasi Rak</label>
+												<input type="text" class="form-control" id="lokasiRak-edit" v-model="currentItem.lokasiRak">
+												<div class="invalid-feedback" id="lokasiRak-edit-msg"></div>
+											</div>
+											<div class="mb-3">
+												<label class="form-label">Harga</label>
+												<input type="number" class="form-control" id="harga-edit" v-model.number="currentItem.harga">
+												<div class="invalid-feedback" id="harga-edit-msg"></div>
+											</div>
+											<div class="mb-3">
+												<label class="form-label">Stok (qty)</label>
+												<div class="input-group">
+													<button type="button" class="btn btn-outline-secondary" @click="changeQty(currentItem, 'qty', -1)">-</button>
+													<input type="number" class="form-control text-center" v-model.number="currentItem.qty" required>
+													<button type="button" class="btn btn-outline-secondary" @click="changeQty(currentItem, 'qty', 1)">+</button>
+												</div>
+											</div>
+											<div class="mb-3">
+												<label class="form-label">Batas Stok Aman (safety)</label>
+												<div class="input-group">
+													<button type="button" class="btn btn-outline-secondary" @click="changeQty(currentItem, 'safety', -1)">-</button>
+													<input type="number" class="form-control text-center" v-model.number="currentItem.safety" required>
+													<button type="button" class="btn btn-outline-secondary" @click="changeQty(currentItem, 'safety', 1)">+</button>
+												</div>
+											</div>
+											<div class="mb-3">
+												<label class="form-label">Catatan</label>
+												<textarea class="form-control" v-model="currentItem.catatanHTML"></textarea>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-danger" @click="showEditModal = false"><i class="fas fa-times"></i> Batalkan</button>
+											<button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Perbarui</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</transition>
+					<transition name="backdrop-fade">
+						<div v-if="showEditModal" class="modal-backdrop fade show"></div>
+					</transition>
+				</teleport>
+			</main>
+		</div>
+	</div>
+
+	<footer class="bg-dark text-white">
+		<div class="container">
+			<div class="py-3 text-center">&copy; 2025 · William · 051923425 · <a href="https://github.com/Arstend/sitta-praktik-ut" target="_blank"><i class="fab fa-github"></i> Open Source Project</a></div>
+		</div>
+	</footer>
+</div>
+
+<!-- Vendor -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+<!-- Muat script dummy dan stok-app -->
+<script type="text/javascript" src="js/dataBahanAjar.js"></script>
+<script type="text/javascript" src="js/stok-app.js"></script>
+
+</body>
+</html>
