@@ -1,0 +1,172 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+	<h1 class="h2">Tracking Delivery Order Bahan Ajar</h1>
+</div>
+
+<!-- Input Delivery Order Baru -->
+<div class="card shadow-sm mb-4">
+	<div class="card-header bg-primary text-white fw-bold">Input Delivery Order Baru</div>
+	<div class="card-body">
+		<div class="row g-3">
+			<div class="col-md-4">
+				<label class="form-label fw-semibold">Nomor DO</label>
+				<input type="text" class="form-control" id="nomorDO" v-model="form.nomorDO" readonly>
+				<div class="invalid-feedback" id="nomorDO-msg"></div>
+			</div>
+			<div class="col-md-4">
+				<label class="form-label fw-semibold">NIM</label>
+				<input type="text" class="form-control" id="nim" v-model="form.nim" placeholder="Masukkan NIM" autocomplete="off">
+				<div class="invalid-feedback" id="nim-msg"></div>
+			</div>
+			<div class="col-md-4">
+				<label class="form-label fw-semibold">Nama Mahasiswa</label>
+				<input type="text" class="form-control" id="nama" v-model="form.nama" placeholder="Masukkan Nama" autocomplete="off">
+				<div class="invalid-feedback" id="nama-msg"></div>
+			</div>
+
+			<div class="col-md-4">
+				<label class="form-label fw-semibold">Ekspedisi</label>
+				<select class="form-select" id="ekspedisi" v-model="form.ekspedisi">
+					<option disabled value="">Pilih Ekspedisi</option>
+					<option v-for="(exp, idx) in ekspedisiOptions" :key="idx" :value="exp.kode">{{ exp.nama }}</option>
+				</select>
+				<div class="invalid-feedback" id="ekspedisi-msg"></div>
+			</div>
+
+			<div class="col-md-4">
+				<label class="form-label fw-semibold">Paket Bahan Ajar</label>
+				<select class="form-select" id="paketKode" v-model="form.paketKode">
+					<option disabled value="">Pilih Paket</option>
+					<option v-for="p in allPaketList" :key="p.kode" :value="p.kode">{{ p.kode }} - {{ p.nama }}</option>
+				</select>
+				<div class="invalid-feedback" id="paketKode-msg"></div>
+			</div>
+
+			<div class="col-md-4">
+				<label class="form-label fw-semibold">Tanggal Kirim</label>
+				<input type="date" class="form-control" id="tanggalKirim" v-model="form.tanggalKirim" />
+				<div class="invalid-feedback" id="tanggalKirim-msg"></div>
+			</div>
+		</div>
+
+		<!-- Detail paket terpilih -->
+		<div v-if="paketDetail" class="mt-4 p-3 border rounded bg-light-subtle">
+			<h6 class="fw-bold mb-2">Detail Paket: {{ paketDetail.nama }}</h6>
+			<ul class="mb-2">
+				<li v-for="(isi, i) in paketIsiList(paketDetail)" :key="i">{{ isi }}</li>
+			</ul>
+			<div>
+				<strong>Total Harga:</strong> <span class="text-success">{{ totalHarga }}</span>
+			</div>
+		</div>
+
+		<div class="text-end mt-4">
+			<button class="btn btn-danger" @click="newDO"><i class="fas fa-undo"></i> Reset</button>
+			<button class="btn btn-primary  ms-2" @click="saveDO"><i class="fas fa-save"></i> Simpan</button>
+		</div>
+	</div>
+</div>
+
+<!-- Daftar Delivery Order -->
+<div class="card shadow-sm">
+	<div class="card-header bg-dark text-white fw-bold">Daftar Delivery Order</div>
+	<div class="card-body">
+		<!-- Search input: tekan Enter untuk submit, Esc untuk reset -->
+		<div class="mb-3">
+			<div class="input-group">
+				<input type="text" v-model="searchQuery" @keydown.enter.prevent="applySearch" @keydown.esc.prevent="clearSearch" class="form-control" placeholder="Cari Nomor DO / NIM / Nama. Tekan Enter untuk cari, Esc untuk reset" />
+				<button class="btn btn-primary" type="button" @click="applySearch"><i class="fas fa-search"></i> Cari</button>
+				<button class="btn btn-secondary" type="button" @click="clearSearch"><i class="fas fa-redo"></i> Reset</button>
+			</div>
+		</div>
+		<div v-if="activeSearch" class="mb-2"><small class="text-muted">Hasil untuk: "{{ activeSearch }}" <button class="btn btn-sm btn-link" @click="clearSearch">Reset</button></small></div>
+		<div class="table-responsive">
+			<table class="table table-striped table-hover align-middle">
+				<thead class="table-secondary">
+					<tr>
+						<th>No.</th>
+						<th>Nomor DO</th>
+						<th>NIM</th>
+						<th>Nama</th>
+						<th>Paket</th>
+						<th>Ekspedisi</th>
+						<th>Tanggal Kirim</th>
+						<th>Total</th>
+						<th>Status</th>
+						<th>---</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(o, index) in displayedOrders" :key="o.nomorDO">
+						<td>{{ index + 1 }}</td>
+						<td>{{ o.nomorDO }}</td>
+						<td>{{ o.nim }}</td>
+						<td>{{ o.nama }}</td>
+						<td>{{ o.paketNama || o.paketKode }}</td>
+						<td>{{ o.ekspedisi }}</td>
+						<td>{{ fmtTanggalDisplay(o.tanggalKirim) }}</td>
+						<td>{{ $formatRupiah(o.total) }}</td>
+						<td><span :class="badgeClass(o.status)">{{ o.status }}</span></td>
+						<td>
+							<button class="btn btn-sm btn-primary text-white" @click="openDetail(o)"><i class="fas fa-eye"></i> Detail</button>
+						</td>
+					</tr>
+					<tr v-if="displayedOrders.length === 0">
+						<td colspan="10" class="text-center text-muted py-3">Belum ada Delivery Order</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<!-- Modal Detail Delivery Order -->
+<!-- Teleport modal + backdrop ke body -->
+<teleport to="body">
+	<transition name="modal">
+		<div v-if="showDetailModal" class="modal fade show" tabindex="-1" :class="{ 'show d-block': showDetailModal }" style="background: rgba(0,0,0,0.4)" data-bs-backdrop="static" aria-modal="true" role="dialog" style="display:block;">
+			<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+				<div class="modal-content">
+					<div class="modal-header bg-primary text-white">
+						<h5 class="modal-title">Detail Delivery Order</h5>
+						<button type="button" class="btn-close btn-close-white" @click="closeDetail"></button>
+					</div>
+					<div class="modal-body" v-if="detailOrder">
+						<div class="mb-3"><strong>Nomor DO :</strong> {{ detailOrder.nomorDO }}</div>
+						<div class="mb-3"><strong>NIM :</strong> {{ detailOrder.nim }}</div>
+						<div class="mb-3"><strong>Nama Mahasiswa :</strong> {{ detailOrder.nama }}</div>
+						<div class="mb-3"><strong>Paket :</strong> {{ detailOrder.paketNama || detailOrder.paketKode }}</div>
+						<div class="mb-3"><strong>Ekspedisi :</strong> {{ detailOrder.ekspedisi }}</div>
+						<div class="mb-3"><strong>Total :</strong> {{ $formatRupiah(detailOrder.total) }}</div>
+						<div class="mb-3"><strong>Status :</strong> <span :class="badgeClass(detailOrder.status)">{{ detailOrder.status }}</span></div>
+
+						<hr />
+						<h6 class="fw-bold">Riwayat Perjalanan</h6>
+						<ul class="list-group">
+							<li v-for="(r, idx) in getPerjalananSorted(detailOrder)" :key="idx" class="list-group-item">
+								<strong>{{ fmtTanggalWaktuDisplay(r.waktu) }}</strong> - {{ r.keterangan || '-' }}
+							</li>
+							<li v-if="!detailOrder.perjalanan || !detailOrder.perjalanan.length" class="list-group-item text-muted text-center">Belum ada riwayat perjalanan</li>
+						</ul>
+
+						<!-- Form tambah riwayat jika belum selesai -->
+						<div v-if="detailOrder && detailOrder.status !== 'Selesai'" class="mt-3">
+							<label class="form-label">Tambah Riwayat Perjalanan</label>
+							<div class="input-group">
+								<textarea class="form-control" v-model="newHistoryNote" placeholder="Keterangan perjalanan"></textarea>
+								<button class="btn btn-outline-primary" type="button" @click="addPerjalanan" :disabled="!newHistoryNote.trim()">Tambah</button>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-danger" @click="closeDetail"><i class="fas fa-times"></i> Tutup</button>
+						<!-- Tombol Selesai muncul hanya saat status Dalam Perjalanan -->
+						<button v-if="detailOrder && detailOrder.status === 'Dalam Perjalanan'" class="btn btn-success" @click="markSelesai"><i class="fas fa-check"></i> Selesai</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</transition>
+	<transition name="backdrop-fade">
+		<div v-if="showDetailModal" class="modal-backdrop fade show"></div>
+	</transition>
+</teleport>

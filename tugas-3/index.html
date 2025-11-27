@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!--
+================================================================================
+	SITTA - Sistem Informasi Tracking Pengiriman Tugas Ajar
+	Platform: Universitas Terbuka
+================================================================================
+	Host      : SITTA
+	Author    : Arstend
+	Developer : Arstend (https://arstend.id)
+	License   : MIT
+	Version   : 3.0.0
+================================================================================
+
+	CATATAN PENTING:
+	Jika halaman tidak ditampilkan dengan benar dan console menampilkan error
+	"Cross-Origin Request Blocked", pastikan Anda menggunakan web server lokal
+	(XAMPP, WAMP, MAMP) atau Live Server. Akses langsung via file:/// tidak
+	diizinkan karena batasan CORS dari browser masing-masing.
+	
+	Atau akses live demo di https://arstend.id/sitta-praktik/tugas3/
+
+================================================================================
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta name="pragma" content="no-cache">
+<meta name="expires" content="0">
+
+<!-- SEO & Meta Information -->
+<meta name="language" content="id">
+<meta name="title" content="SITTA - Dashboard | Universitas Terbuka">
+<meta name="description" content="Sistem Informasi Tracking Pengiriman Tugas Ajar - Platform manajemen dan tracking pengiriman bahan ajar Universitas Terbuka">
+<meta name="keywords" content="SITTA, Universitas Terbuka, Tracking, Delivery Order, Manajemen Bahan Ajar, Web Application">
+<meta name="author" content="Arstend">
+<meta name="generator" content="Visual Studio Code">
+
+<!-- Open Graph (Social Media) -->
+<meta property="og:locale" content="id_ID">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SITTA - Dashboard | Universitas Terbuka">
+<meta property="og:description" content="Sistem Informasi Tracking Pengiriman Tugas Ajar - Platform manajemen dan tracking pengiriman bahan ajar">
+<meta property="og:url" content="https://arstend.id/sitta-praktik/tugas3/">
+<meta property="og:site_name" content="SITTA">
+
+<title>SITTA - Dashboard | Universitas Terbuka</title>
+
+<!-- Stylesheets -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" crossorigin="anonymous">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div id="app">
+	<header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
+		<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white">Universitas Terbuka</a>
+		<ul class="navbar-nav flex-row d-md-none">
+			<li class="nav-item text-nowrap">
+				<button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars bi" aria-hidden="true"></i></button>
+			</li>
+		</ul>
+	</header>
+	<div class="container-fluid">
+		<div class="row">
+			<!-- Sidebar left -->
+			<div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+				<div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="sidebarMenuLabel">Universitas Terbuka</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+					</div>
+					<div class="offcanvas-body d-md-flex flex-column p-3 pt-lg-3 overflow-y-auto">
+						<!-- Logo -->
+						<div class="d-flex align-items-center gap-3 mb-3">
+							<img src="assets/img/Logo_Universitas_Terbuka.svg" alt="UT" class="profile-img rounded-circle">
+							<div>
+								<div class="fw-semibold">Universitas Terbuka</div>
+								<small class="text-muted">Aplikasi SITTA</small>
+							</div>
+						</div>
+
+						<!-- Menu -->
+						<div class="list-group mb-2 shadow-sm">
+							<a class="list-group-item list-group-item-action d-flex align-items-center gap-2" :class="{ 'active': tab === 'dashboard' }" @click="changeTab('dashboard')">
+								<i class="fas fa-tachometer-alt fa-fw"></i>
+								<span>Dashboard</span>
+							</a>
+							<a class="list-group-item list-group-item-action d-flex align-items-center gap-2" :class="{ 'active': tab === 'stok' }" @click="changeTab('stok')">
+								<i class="fas fa-book fa-fw"></i>
+								<span>Informasi Bahan Ajar</span>
+							</a>
+							<a class="list-group-item list-group-item-action d-flex align-items-center gap-2" :class="{ 'active': tab === 'tracking' }" @click="changeTab('tracking')">
+								<i class="fas fa-file-alt fa-fw"></i>
+								<span>Tracking Delivery Order</span>
+							</a>
+						</div>
+
+						<!-- Collapsible sub menu laporan -->
+						<div class="mb-2">
+							<button class="btn btn-sm btn-outline-secondary w-100 text-start d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#laporanCollapse" aria-expanded="false" aria-controls="laporanCollapse">
+								<span><i class="fas fa-chart-line me-2"></i> Laporan</span>
+								<i class="fas fa-chevron-down small"></i>
+							</button>
+							<div class="collapse mt-2" id="laporanCollapse">
+								<div class="list-group">
+									<a class="list-group-item list-group-item-action ps-4">Monitoring DO</a>
+									<a class="list-group-item list-group-item-action ps-4">Rekap Bahan Ajar</a>
+								</div>
+							</div>
+						</div>
+
+						<hr class="my-3">
+
+						<!-- Utilities -->
+						<div class="list-group mb-3">
+							<a class="list-group-item list-group-item-action d-flex align-items-center gap-2"><i class="fas fa-history fa-fw"></i> Histori Transaksi</a>
+							<a class="list-group-item list-group-item-action d-flex align-items-center gap-2"><i class="fas fa-cog fa-fw"></i> Settings</a>
+							<a class="list-group-item list-group-item-action d-flex align-items-center gap-2 text-danger"><i class="fas fa-sign-out-alt fa-fw"></i> Keluar</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<noscript>Mohon aktifkan javascript agar halaman ini dapat berfungsi dengan baik. Terima kasih.</noscript>
+			<section class="col-md-9 ms-sm-auto col-lg-10 px-md-4" v-show="tab==='dashboard'">
+				<dashboard></dashboard>
+			</section>
+			<section class="col-md-9 ms-sm-auto col-lg-10 px-md-4" v-show="tab==='tracking'">
+				<do-tracking></do-tracking>
+			</section>
+			<section class="col-md-9 ms-sm-auto col-lg-10 px-md-4" v-show="tab==='stok'">
+				<ba-stock-table></ba-stock-table>
+			</section>
+		</div>
+	</div>
+
+	<footer class="bg-dark text-white">
+		<div class="container">
+			<div class="py-3 text-center">&copy; 2025 · William · 051923425 · <a href="https://github.com/Arstend/sitta-praktik-ut" target="_blank"><i class="fab fa-github"></i> Open Source Project</a></div>
+		</div>
+	</footer>
+</div>
+
+<!-- Templates -->
+<template id="tpl-dashboard"></template>
+<template id="tpl-tracking"></template>
+<template id="tpl-order"></template>
+<template id="tpl-stok"></template>
+<template id="tpl-badge"></template>
+<template id="tpl-modal"></template>
+
+<!-- Vendor -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Muat script utama app -->
+<script type="text/javascript" src="js/services/api.js"></script>
+<script type="text/javascript" src="js/components/dashboard.js"></script>
+<script type="text/javascript" src="js/components/do-tracking.js"></script>
+<script type="text/javascript" src="js/components/stock-table.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>
