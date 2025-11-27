@@ -4,6 +4,6 @@
 <p>For dummy user, check at <a href="https://github.com/Arstend/sitta-praktik-ut/blob/main/tugas-1/js/data.js">tugas-1/js/data.js</a> file</p>
 <ul>
   <li><a href="https://github.com/Arstend/sitta-praktik-ut/tree/main/tugas-1">Tugas 1</a> - <a href="https://www.youtube.com/watch?v=C1Z6BNybqdk" target="_blank">Completed with video</a> - Graded : 94.00</li>
-  <li><a href="https://github.com/Arstend/sitta-praktik-ut/tree/main/tugas-2">Tugas 2 (with Vue.js)</a> - <a href="https://youtu.be/qacI7e5VJ4Y" target="_blank">Completed with video</a> - Not graded</li>
-  <li><a href="https://github.com/Arstend/sitta-praktik-ut/tree/main/tugas-3">Tugas 3 (coming soon)</a> - Not available yet - Not graded</li>
+  <li><a href="https://github.com/Arstend/sitta-praktik-ut/tree/main/tugas-2">Tugas 2 (with Vue.Js Implementation)</a> - <a href="https://youtu.be/qacI7e5VJ4Y" target="_blank">Completed with video</a> - Graded : 87.00</li>
+  <li><a href="https://github.com/Arstend/sitta-praktik-ut/tree/main/tugas-3">Tugas 3 (Vue.Js + Vue Component + Vue Template Implementation)</a> - <a href="https://youtu.be/jXZu2IXGkc4" target="_blank">Completed with video</a> - Not graded</li>
 </ul>
